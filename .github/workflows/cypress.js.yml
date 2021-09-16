@@ -23,5 +23,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run build --loginPO.spec.js -chrome
+    - run: npm run --loginPO.spec.js -chrome
     - run: npm test 
