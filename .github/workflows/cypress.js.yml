@@ -9,28 +9,18 @@ on:
   pull_request:
     branches: [ main ]
 
-jobs:
-  cypress-test:
-    name: Run on Chrome 83
-    runs-on: ubuntu-18.04
-    container: cypress/browsers:node12.18.0-chrome83-ff77
-    
-steps:
-    - uses: actions/checkout@v2
-    
-    -name: Install cypress and verify 
-    run: 
-      npm ci
-      $(npm bin)/cypress verify
-      
-    -name: Run cypress Tests
-      run: npm run test :chrome
-      continue-on-error: false
-      
-    -name: Copy test execution videos and screenshots 
-     run: 
-         mkdir public
-         cp -r cypress/videos public/videos
-         cp -r cypress/screenshots public/screenshots
-      
+
+ jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          build: npm run build
+          start: npm start
  
